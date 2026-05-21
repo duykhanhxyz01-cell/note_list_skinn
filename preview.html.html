@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>List Skin</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:
+    radial-gradient(circle at top,#07152e 0%,#030812 65%,#01040a 100%);
+    
+    font-family:Consolas, monospace;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+
+    overflow:hidden;
+    padding:14px;
+}
+
+/* glow background */
+
+body::before{
+    content:"";
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:#00ffae22;
+
+    filter:blur(130px);
+
+    animation:glowMove 7s ease-in-out infinite alternate;
+}
+
+@keyframes glowMove{
+
+    from{
+        transform:translate(-120px,-50px);
+    }
+
+    to{
+        transform:translate(120px,50px);
+    }
+
+}
+
+/* main */
+
+.box{
+
+    width:100%;
+    max-width:430px;
+
+    height:92vh;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(7,18,45,.97),
+    rgba(3,10,28,.97)
+    );
+
+    border-radius:24px;
+
+    border:1px solid rgba(0,255,170,.18);
+
+    box-shadow:
+    0 0 35px rgba(0,255,170,.08),
+    inset 0 0 20px rgba(255,255,255,.02);
+
+    backdrop-filter:blur(12px);
+
+    overflow:hidden;
+
+    position:relative;
+
+    padding:16px;
+}
+
+/* viền ngoài */
+
+.box::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:24px;
+
+    padding:1px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(0,255,170,.25),
+    transparent,
+    rgba(0,255,170,.15)
+    );
+
+    -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+}
+
+/* top dots */
+
+.top{
+    display:flex;
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.dot{
+    width:14px;
+    height:14px;
+    border-radius:50%;
+}
+
+.red{
+    background:#ff5f57;
+}
+
+.yellow{
+    background:#febc2e;
+}
+
+.green{
+    background:#28c840;
+}
+
+/* title */
+
+.title{
+
+    width:max-content;
+
+    margin:0 auto 22px;
+
+    padding:10px 18px;
+
+    font-size:19px;
+
+    color:#00ffae;
+
+    border-radius:12px;
+
+    border:1px solid #00ffae88;
+
+    background:rgba(0,255,174,.05);
+
+    box-shadow:
+    0 0 15px rgba(0,255,174,.15);
+
+    text-shadow:
+    0 0 10px rgba(0,255,174,.45);
+
+    animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        box-shadow:0 0 10px rgba(0,255,174,.08);
+    }
+
+    50%{
+        box-shadow:0 0 22px rgba(0,255,174,.25);
+    }
+
+    100%{
+        box-shadow:0 0 10px rgba(0,255,174,.08);
+    }
+}
+
+/* list */
+
+.list{
+
+    height:calc(100% - 90px);
+
+    overflow-y:auto;
+
+    padding-right:4px;
+}
+
+/* scrollbar */
+
+.list::-webkit-scrollbar{
+    width:4px;
+}
+
+.list::-webkit-scrollbar-thumb{
+
+    background:#00ffae88;
+
+    border-radius:20px;
+}
+
+/* item */
+
+.item{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:11px 12px;
+
+    margin-bottom:7px;
+
+    border-radius:14px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    opacity:0;
+
+    transform:
+    translateY(18px)
+    scale(.96);
+
+    animation:
+    showItem .7s cubic-bezier(.22,1,.36,1) forwards;
+
+    transition:
+    .25s;
+}
+
+/* hover */
+
+.item:hover{
+
+    background:rgba(0,255,174,.05);
+
+    transform:
+    translateX(4px)
+    scale(1.01);
+
+    box-shadow:
+    0 0 18px rgba(0,255,174,.08);
+}
+
+/* light effect */
+
+.item::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+    90deg,
+    transparent,
+    rgba(0,255,174,.07),
+    transparent
+    );
+
+    transition:.8s;
+}
+
+.item:hover::before{
+    left:100%;
+}
+
+/* arrow */
+
+.arrow{
+
+    color:#00ffae;
+
+    font-size:19px;
+
+    text-shadow:
+    0 0 8px rgba(0,255,174,.5);
+}
+
+/* text */
+
+.text{
+
+    color:#d8fff1;
+
+    font-size:18px;
+
+    line-height:1.4;
+
+    letter-spacing:.3px;
+}
+
+/* animation */
+
+@keyframes showItem{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+        translateY(18px)
+        scale(.96);
+
+        filter:blur(5px);
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:
+        translateY(0)
+        scale(1);
+
+        filter:blur(0);
+    }
+}
+
+/* hiện lần lượt */
+
+.item:nth-child(1){animation-delay:.05s;}
+.item:nth-child(2){animation-delay:.10s;}
+.item:nth-child(3){animation-delay:.15s;}
+.item:nth-child(4){animation-delay:.20s;}
+.item:nth-child(5){animation-delay:.25s;}
+.item:nth-child(6){animation-delay:.30s;}
+.item:nth-child(7){animation-delay:.35s;}
+.item:nth-child(8){animation-delay:.40s;}
+.item:nth-child(9){animation-delay:.45s;}
+.item:nth-child(10){animation-delay:.50s;}
+.item:nth-child(11){animation-delay:.55s;}
+.item:nth-child(12){animation-delay:.60s;}
+.item:nth-child(13){animation-delay:.65s;}
+.item:nth-child(14){animation-delay:.70s;}
+.item:nth-child(15){animation-delay:.75s;}
+.item:nth-child(16){animation-delay:.80s;}
+.item:nth-child(17){animation-delay:.85s;}
+.item:nth-child(18){animation-delay:.90s;}
+.item:nth-child(19){animation-delay:.95s;}
+.item:nth-child(20){animation-delay:1s;}
+.item:nth-child(21){animation-delay:1.05s;}
+.item:nth-child(22){animation-delay:1.10s;}
+.item:nth-child(23){animation-delay:1.15s;}
+.item:nth-child(24){animation-delay:1.20s;}
+.item:nth-child(25){animation-delay:1.25s;}
+.item:nth-child(26){animation-delay:1.30s;}
+.item:nth-child(27){animation-delay:1.35s;}
+.item:nth-child(28){animation-delay:1.40s;}
+.item:nth-child(29){animation-delay:1.45s;}
+.item:nth-child(30){animation-delay:1.50s;}
+.item:nth-child(31){animation-delay:1.55s;}
+.item:nth-child(32){animation-delay:1.60s;}
+.item:nth-child(33){animation-delay:1.65s;}
+.item:nth-child(34){animation-delay:1.70s;}
+.item:nth-child(35){animation-delay:1.75s;}
+.item:nth-child(36){animation-delay:1.80s;}
+.item:nth-child(37){animation-delay:1.85s;}
+.item:nth-child(38){animation-delay:1.90s;}
+.item:nth-child(39){animation-delay:1.95s;}
+.item:nth-child(40){animation-delay:2s;}
+.item:nth-child(41){animation-delay:2.05s;}
+.item:nth-child(42){animation-delay:2.10s;}
+
+/* mobile */
+
+@media(max-width:480px){
+
+    .box{
+        height:95vh;
+        padding:14px;
+    }
+
+    .title{
+        font-size:16px;
+        padding:9px 14px;
+    }
+
+    .text{
+        font-size:16px;
+    }
+
+    .arrow{
+        font-size:17px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <div class="top">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+    </div>
+
+    <div class="title">
+        List Skin Bị Ảo Khi Dùng Unlock
+    </div>
+
+    <div class="list">
+
+        <div class="item"><div class="arrow">➜</div><div class="text">Airi Bích Hải Thánh Nữ</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Aoi Mikasa Ackermann</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Aya Công Chúa Cầu Vồng</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Bijan Kình Thiên Long Kỵ</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Billow Thiên Tướng Độ Ách</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Bolt Baron Thiên Phủ - Tư Mệnh</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Butterfly Phượng Cửu Thiên</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Capheny Càn Nguyên Vệ Phủ</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Charlotte Hexsword</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Cresht Eren Kaeger</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Điêu Thuyền Nhật Nguyệt Thánh Linh</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Eland'orr Mộng Giới Thần Chủ</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Errol Genos</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Florentino Kỷ Nguyên</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Hayate Siêu Đạo Chích Kid</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Hayate Tu Di Thánh Đế</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Krixi Phù Thuỷ Thời Không</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Lauriel Mã Đẳng Cửu Thế</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Lauriel Thứ Nguyên Vệ Thần</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Liliana Ma Pháp Tối Thượng</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Murad Thiên Luân Kiếm Thánh</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Murad Tuyệt Thế Thần Binh</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Nakroth Bạch Diện</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Nakroth Levi</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Nakroth Quỷ Thương Hiệp Đế</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Nakroth Siêu Việt</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Ngộ Không Nhóc Tì Bá Đạo</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Qi Annie Leonhart</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Raz Bão Vũ Cuồng Lôi</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Ryoma Maple Frost</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Tel'Annas Lân Quang Thánh Điệu</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Tel'Annas Tân Niên Vệ Thần</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Triệu Vân Minh Chung Long Đế</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Tulen Chí Tôn Kiếm Tiên</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Tulen Thần Sứ STL</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Tulen Thiên Cơ Bạch Trạch</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Valhein Mã Hành Vạn Lý</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Valhein Thứ Nguyên Vệ Thần</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Veres Lưu Ly Long Mẫu</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Verra Thất Sát - Thượng Sinh</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Violet Vọng Nguyệt Long Cơ</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Yena Huyền Cửu Thiên</div></div>
+        <div class="item"><div class="arrow">➜</div><div class="text">Yue Hỗn Độn Thần Ma</div></div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
